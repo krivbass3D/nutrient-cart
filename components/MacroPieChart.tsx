@@ -151,7 +151,7 @@ export default function MacroPieChart({ actual, totals, size = 180 }: Props) {
           <div className="mt-3 pt-3 border-t border-white/10">
             <p className="text-xs text-white/40">Итого в корзине</p>
             <p className="text-lg font-bold text-white mt-1">{Math.round(totals.calories)} <span className="text-xs text-white/40">ккал</span></p>
-            <p className="text-xs text-white/50">Б: {totals.protein}г · Ж: {totals.fat}г · У: {totals.carbs}г</p>
+            <p className="text-xs text-white/50">Б: {Math.round(totals.protein)}г · Ж: {Math.round(totals.fat)}г · У: {Math.round(totals.carbs)}г</p>
           </div>
         )}
       </div>

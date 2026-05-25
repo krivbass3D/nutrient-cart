@@ -33,16 +33,16 @@ export async function POST(req: NextRequest) {
       .join('\n')
 
     const response = await openai.chat.completions.create({
-      model: 'gpt-4o',
-      max_tokens: 400,
+      model: 'gpt-4o-mini',
+      max_tokens: 150,
       messages: [
         {
           role: 'system',
-          content: 'You are a friendly nutrition advisor. Give practical, specific advice in Russian. Be warm and motivating.',
+          content: 'You are a professional nutrition expert. Give extremely brief, clear, and direct advice in Russian. Avoid any fluff, preambles, or long explanations.',
         },
         {
           role: 'user',
-          content: `Analyze this grocery purchase and give practical advice.
+          content: `Analyze this grocery purchase and give very brief practical advice.
 
 FAMILY: ${membersDesc}
 STORE: ${store}
@@ -53,16 +53,16 @@ PURCHASED MACROS (total for all items):
 - Fat: ${totals.fat}g (${macroPercent.fatPct}% of macros)
 - Carbs: ${totals.carbs}g (${macroPercent.carbsPct}% of macros)
 
-WHO RECOMMENDED: Protein ${RECOMMENDED_MACROS.proteinPct}% / Fat ${RECOMMENDED_MACROS.fatPct}% / Carbs ${RECOMMENDED_MACROS.carbsPct}%
+WHO RECOMMENDED MACRO BALANCE: Protein ${RECOMMENDED_MACROS.proteinPct}% / Fat ${RECOMMENDED_MACROS.fatPct}% / Carbs ${RECOMMENDED_MACROS.carbsPct}%
 
 TOP CALORIE ITEMS:
 ${topItems}
 
-Write 3-4 sentences of practical nutrition advice in Russian. Be specific about:
-1. What's good in this purchase (if anything)
-2. What macro is imbalanced and by how much
-3. One specific actionable suggestion (which product to add or reduce)
-Keep it friendly and motivating. No bullet points, just natural flowing text.`,
+Write exactly 2-3 short, clear sentences in Russian:
+1. Evaluate if this purchase is generally healthy or not.
+2. Note the most significant macro imbalance.
+3. Give one simple, concrete product suggestion (what to add or buy less next time).
+Keep it extremely concise and easy to understand.`,
         },
       ],
     })

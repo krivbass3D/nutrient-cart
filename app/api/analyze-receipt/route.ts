@@ -14,8 +14,9 @@ export async function POST(req: NextRequest) {
     const mediaType = file.type || 'image/jpeg'
 
     const response = await openai.chat.completions.create({
-      model: 'gpt-4o',
-      max_tokens: 2000,
+      model: 'gpt-4o-mini',
+      max_tokens: 1200,
+      response_format: { type: 'json_object' },
       messages: [
         {
           role: 'user',

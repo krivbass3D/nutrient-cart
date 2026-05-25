@@ -24,7 +24,7 @@ export default function HistoryPage() {
 
   return (
     <div className="min-h-screen bg-[#0d0d1a] text-white font-['DM_Sans',sans-serif]">
-      <style>{`@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&display=swap');`}</style>
+      <style dangerouslySetInnerHTML={{ __html: `@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&display=swap');` }} />
 
       <header className="px-6 py-5 border-b border-white/8 flex items-center justify-between max-w-4xl mx-auto">
         <div className="flex items-center gap-3">

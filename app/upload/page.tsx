@@ -160,7 +160,7 @@ export default function UploadPage() {
 
   return (
     <div className="min-h-screen bg-[#0d0d1a] text-white font-['DM_Sans',sans-serif]">
-      <style>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600&family=DM+Mono:wght@400;500&display=swap');
         .glow { box-shadow: 0 0 40px rgba(46,196,182,0.12); }
         .tag { display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:999px;font-size:11px; }
@@ -170,7 +170,7 @@ export default function UploadPage() {
         .fade-up { animation: fade-up 0.4s ease forwards; }
         @keyframes pulse { 0%,100%{opacity:1}50%{opacity:0.5} }
         .pulse { animation: pulse 1.5s ease-in-out infinite; }
-      `}</style>
+      ` }} />
 
       <header className="px-6 py-5 border-b border-white/8 flex items-center justify-between max-w-4xl mx-auto">
         <div className="flex items-center gap-3">
@@ -290,9 +290,9 @@ export default function UploadPage() {
                       </div>
                       <div className="flex gap-4 text-xs font-mono text-right shrink-0">
                         <span className="text-white/50 w-16">{item.nutrition?.calories} ккал</span>
-                        <span style={{ color: '#e9c46a' }} className="w-12 hidden sm:block">Б {item.nutrition?.protein}г</span>
-                        <span style={{ color: '#ff9f1c' }} className="w-12 hidden sm:block">Ж {item.nutrition?.fat}г</span>
-                        <span style={{ color: '#2ec4b6' }} className="w-12 hidden sm:block">У {item.nutrition?.carbs}г</span>
+                        <span style={{ color: '#e9c46a' }} className="w-16 hidden sm:block">Б {item.nutrition?.protein}г</span>
+                        <span style={{ color: '#ff9f1c' }} className="w-16 hidden sm:block">Ж {item.nutrition?.fat}г</span>
+                        <span style={{ color: '#2ec4b6' }} className="w-16 hidden sm:block">У {item.nutrition?.carbs}г</span>
                         {item.nutrition?.source === 'estimated' && (
                           <span className="tag bg-amber-500/10 text-amber-400/70">~ест.</span>
                         )}
@@ -307,9 +307,9 @@ export default function UploadPage() {
                 </div>
                 <div className="flex gap-4 text-sm font-mono text-right shrink-0">
                   <span className="text-white/80 w-16">{Math.round(receipt.totalNutrition.calories)} ккал</span>
-                  <span style={{ color: '#e9c46a' }} className="w-12 hidden sm:block">Б {receipt.totalNutrition.protein}г</span>
-                  <span style={{ color: '#ff9f1c' }} className="w-12 hidden sm:block">Ж {receipt.totalNutrition.fat}г</span>
-                  <span style={{ color: '#2ec4b6' }} className="w-12 hidden sm:block">У {receipt.totalNutrition.carbs}г</span>
+                  <span style={{ color: '#e9c46a' }} className="w-16 hidden sm:block">Б {Math.round(receipt.totalNutrition.protein)}г</span>
+                  <span style={{ color: '#ff9f1c' }} className="w-16 hidden sm:block">Ж {Math.round(receipt.totalNutrition.fat)}г</span>
+                  <span style={{ color: '#2ec4b6' }} className="w-16 hidden sm:block">У {Math.round(receipt.totalNutrition.carbs)}г</span>
                 </div>
               </div>
             </div>

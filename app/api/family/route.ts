@@ -15,13 +15,13 @@ export async function GET(req: NextRequest) {
   const familyId = req.nextUrl.searchParams.get('familyId')
   if (!familyId) {
     // Return all families
-    const { data, error } = await supabase.from('families').select('*').order('created_at', { ascending: false })
+    const { data, error } = await supabase.from('nutri_families').select('*').order('created_at', { ascending: false })
     if (error) return NextResponse.json({ error: error.message }, { status: 500 })
     return NextResponse.json(data)
   }
 
-  const { data: family } = await supabase.from('families').select('*').eq('id', familyId).single()
-  const { data: members } = await supabase.from('family_members').select('*').eq('family_id', familyId)
+  const { data: family } = await supabase.from('nutri_families').select('*').eq('id', familyId).single()
+  const { data: members } = await supabase.from('nutri_family_members').select('*').eq('family_id', familyId)
 
   return NextResponse.json({ ...family, members: members || [] })
 }
@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
 
   // Create family
   const { data: family, error: familyError } = await supabase
-    .from('families')
+    .from('nutri_families')
     .insert({ name: familyName })
     .select()
     .single()
@@ -50,7 +50,7 @@ export async function POST(req: NextRequest) {
       goal: m.goal,
       daily_calories: calcDailyCalories(m),
     }))
-    const { error: membersError } = await supabase.from('family_members').insert(membersToInsert)
+    const { error: membersError } = await supabase.from('nutri_family_members').insert(membersToInsert)
     if (membersError) return NextResponse.json({ error: membersError.message }, { status: 500 })
   }
 

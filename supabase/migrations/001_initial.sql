@@ -1,19 +1,24 @@
 -- NutriCheck DB Schema
 -- Run in Supabase SQL Editor
 
+-- Drop only our app's tables if they exist to avoid conflict and support clean reinstalls
+drop table if exists nutri_receipts cascade;
+drop table if exists nutri_family_members cascade;
+drop table if exists nutri_families cascade;
+
 create extension if not exists "uuid-ossp";
 
 -- Families
-create table if not exists families (
+create table if not exists nutri_families (
   id uuid primary key default uuid_generate_v4(),
   name text not null,
   created_at timestamptz default now()
 );
 
 -- Family members
-create table if not exists family_members (
+create table if not exists nutri_family_members (
   id uuid primary key default uuid_generate_v4(),
-  family_id uuid references families(id) on delete cascade,
+  family_id uuid references nutri_families(id) on delete cascade,
   name text not null,
   age integer not null default 30,
   weight numeric not null default 70,
@@ -24,9 +29,9 @@ create table if not exists family_members (
 );
 
 -- Receipts (stores parsed result as JSON for flexibility)
-create table if not exists receipts (
+create table if not exists nutri_receipts (
   id uuid primary key default uuid_generate_v4(),
-  family_id uuid references families(id) on delete cascade,
+  family_id uuid references nutri_families(id) on delete cascade,
   store text not null default 'Unknown',
   date text,
   total numeric not null default 0,
@@ -39,16 +44,16 @@ create table if not exists receipts (
 );
 
 -- Enable Row Level Security
-alter table families enable row level security;
-alter table family_members enable row level security;
-alter table receipts enable row level security;
+alter table nutri_families enable row level security;
+alter table nutri_family_members enable row level security;
+alter table nutri_receipts enable row level security;
 
 -- Public access policies (for prototype — restrict in production!)
-create policy "Allow all on families" on families for all using (true);
-create policy "Allow all on family_members" on family_members for all using (true);
-create policy "Allow all on receipts" on receipts for all using (true);
+create policy "Allow all on nutri_families" on nutri_families for all using (true);
+create policy "Allow all on nutri_family_members" on nutri_family_members for all using (true);
+create policy "Allow all on nutri_receipts" on nutri_receipts for all using (true);
 
 -- Index for performance
-create index if not exists receipts_family_id_idx on receipts(family_id);
-create index if not exists receipts_created_at_idx on receipts(created_at desc);
-create index if not exists family_members_family_id_idx on family_members(family_id);
+create index if not exists nutri_receipts_family_id_idx on nutri_receipts(family_id);
+create index if not exists nutri_receipts_created_at_idx on nutri_receipts(created_at desc);
+create index if not exists nutri_family_members_family_id_idx on nutri_family_members(family_id);

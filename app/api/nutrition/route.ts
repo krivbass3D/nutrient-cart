@@ -30,11 +30,12 @@ async function estimateWithGPT(productName: string, nameEn: string): Promise<{
 }> {
   const response = await openai.chat.completions.create({
     model: 'gpt-4o-mini',
-    max_tokens: 150,
+    max_tokens: 60,
+    response_format: { type: 'json_object' },
     messages: [{
       role: 'user',
       content: `Estimate typical nutritional values per 100g for: "${nameEn}" (original: "${productName}")
-Return ONLY JSON (no markdown): {"calories": 0, "protein": 0, "fat": 0, "carbs": 0}
+Return ONLY JSON in this format: {"calories": 0, "protein": 0, "fat": 0, "carbs": 0}
 Use standard food database values. Round to 1 decimal.`,
     }],
   })

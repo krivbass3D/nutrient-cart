@@ -8,12 +8,12 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey)
 export type Database = {
   public: {
     Tables: {
-      families: {
+      nutri_families: {
         Row: { id: string; name: string; created_at: string }
         Insert: { id?: string; name: string }
         Update: { name?: string }
       }
-      family_members: {
+      nutri_family_members: {
         Row: {
           id: string; family_id: string; name: string
           age: number; weight: number; height: number
@@ -23,17 +23,17 @@ export type Database = {
           family_id: string; name: string; age: number
           weight: number; height: number; goal: string; daily_calories: number
         }
-        Update: Partial<Database['public']['Tables']['family_members']['Insert']>
+        Update: Partial<Database['public']['Tables']['nutri_family_members']['Insert']>
       }
-      receipts: {
+      nutri_receipts: {
         Row: {
           id: string; family_id: string; store: string; date: string
           total: number; currency: string; items: string
           total_nutrition: string; macro_percent: string
           recommendations: string; created_at: string
         }
-        Insert: Omit<Database['public']['Tables']['receipts']['Row'], 'id' | 'created_at'>
-        Update: Partial<Database['public']['Tables']['receipts']['Insert']>
+        Insert: Omit<Database['public']['Tables']['nutri_receipts']['Row'], 'id' | 'created_at'>
+        Update: Partial<Database['public']['Tables']['nutri_receipts']['Insert']>
       }
     }
   }
